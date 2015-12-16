@@ -1,4 +1,4 @@
-# vim: set expandtab tabstop=4 shiftwidth=4 autoindent smartindent:
+# vim: set expandtab tabstop=4 shiftwidth=4 autoindent:
 #
 # File:   geojson.py
 # Mark Addinall - November 2015

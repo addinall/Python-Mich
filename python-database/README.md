@@ -1,4 +1,4 @@
-# Using DAtabases with Python
+# Using Databases with Python
 ## University of Michigan
 ### Mark Addinall - December 2015
 ----

@@ -5,8 +5,8 @@
 # Michigan University Computer Science - Python
 #
 # Synopsis: 	Process a file to extract unique organisations
-#		from the From:  lines.
-#		Store in a database.
+#		        from the From:  lines.
+#		        Store in a database.
 #
 #
 

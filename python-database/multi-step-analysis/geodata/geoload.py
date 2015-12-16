@@ -35,6 +35,9 @@ for line in fh:
     url = serviceurl + urllib.urlencode({"sensor":"false", "address": address})
     print 'Retrieving', url
     #uh = urllib.urlopen(url, context=scontext)
+    # I had to remove that line.  Does not work in Python 2.7.x
+    # Mark Addinall
+
     uh = urllib.urlopen(url)
     data = uh.read()
     print data

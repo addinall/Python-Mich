@@ -13,6 +13,7 @@
 # produce an output as shown below.
 #
 # Average spam confidence: 0.750718518519
+
 fname = raw_input("Enter file name: ")
 fh = open(fname)
 sum = 0

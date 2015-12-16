@@ -1,3 +1,18 @@
+# vim: set expandtab tabstop=4 shiftwidth=4 autoindent:
+#
+# File:   roster.py
+# Mark Addinall - December 2015
+# Michigan University Computer Science - Python
+#
+# Synopsis: 	This program reads a JSON file containing
+#		a student/course roster.  It demonstrated
+#		building a many to many relationship with
+#		Python by contructing junction records.
+#		The junction record has a primary key that is a composite
+#		key of the two corrresponding primary entities.
+#		We also add a 'role' meta-data element to this
+#		secondary data object.
+
 import json
 import sqlite3
 
@@ -40,9 +55,9 @@ json_data = json.loads(str_data)
 
 for entry in json_data:
 
-    name = entry[0];
-    title = entry[1];
-    role = entry[2];
+    name 	= entry[0];
+    title 	= entry[1];
+    role 	= entry[2];
     print name, title, str(role)
 
 
@@ -61,3 +76,6 @@ for entry in json_data:
         ( user_id, course_id, role ) )
 
     conn.commit()
+
+    #----------------------- EOF ---------------------------------
+

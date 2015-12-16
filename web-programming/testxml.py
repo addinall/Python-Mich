@@ -3,7 +3,7 @@
 # Advanced Python - Using Web Data
 # Michigan University
 #
-# Little program that uses lxml to build and access an XML doc ument
+# Little program that uses lxml to build and access an XML document
 
 
 import urllib

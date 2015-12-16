@@ -1,5 +1,5 @@
 # little HTML scraper
-# Mark Addinall 2015
+# Mark Addinall December 2015
 # Uni of Michigen - Advanced Python
 # Using data from the web
 #
@@ -10,6 +10,9 @@
 #   - follow that link
 #   - iterate N times
 #   - report the last link
+#
+# This forms the basis of a web crawler in PYTHON
+
 
 import urllib
 from BeautifulSoup import *

@@ -1,3 +1,16 @@
+# vim: set expandtab tabstop=4 shiftwidth=4 autoindent:
+#
+# File:   tracks.py
+# Mark Addinall - December 2015
+# Michigan University Computer Science - Python
+#
+# Synopsis: Ask Spotify for a download of my-track recorded data
+#	        from an XML API service.	
+#           Collect all of the XML elements that are TRACKS and
+#           populate a relational database with the results.
+#
+#           
+
 import xml.etree.ElementTree as ET
 import sqlite3
 
@@ -44,6 +57,8 @@ if ( len(fname) < 1 ) : fname = 'Library.xml'
 # <key>Track ID</key><integer>369</integer>
 # <key>Name</key><string>Another One Bites The Dust</string>
 # <key>Artist</key><string>Queen</string>
+
+
 def lookup(d, key):
     found = False
     for child in d:
@@ -53,40 +68,42 @@ def lookup(d, key):
     return None
 
 stuff = ET.parse(fname)
-all = stuff.findall('dict/dict/dict')
-print 'Dict count:', len(all)
-for entry in all:
-    if ( lookup(entry, 'Track ID') is None ) : continue
+all = stuff.findall('dict/dict/dict')                       # TRACKS are found three levels deep
+print 'Dict count:', len(all)                       
 
-    name = lookup(entry, 'Name')
-    artist = lookup(entry, 'Artist')
-    album = lookup(entry, 'Album')
-    genre = lookup(entry, 'Genre')
-    count = lookup(entry, 'Play Count')
-    rating = lookup(entry, 'Rating')
-    length = lookup(entry, 'Total Time')
+for entry in all:
+    if ( lookup(entry, 'Track ID') is None ) : continue     # if the TAG isn't a track, we don't care
+
+    name    = lookup(entry, 'Name')                         # suck the XML values out
+    artist  = lookup(entry, 'Artist')
+    album   = lookup(entry, 'Album')
+    genre   = lookup(entry, 'Genre')
+    count   = lookup(entry, 'Play Count')
+    rating  = lookup(entry, 'Rating')
+    length  = lookup(entry, 'Total Time')
 
     if name is None or artist is None or genre is None or album is None : 
-        continue
+        continue                                            # for us to make a CLEAN entry into
+                                                            # relational database, we NEED all od these 
+                                                            # elements to be here.
 
     print name, artist, genre, album, count, rating, length
 
     cur.execute('''INSERT OR IGNORE INTO Artist (name) 
         VALUES ( ? )''', ( artist, ) )
+
     cur.execute('SELECT id FROM Artist WHERE name = ? ', (artist, ))
     artist_id = cur.fetchone()[0]
 
     cur.execute('''INSERT OR IGNORE INTO Genre (name) 
         VALUES ( ? )''', ( genre, ) )
+
     cur.execute('SELECT id FROM Genre WHERE name = ? ', (genre, ))
     genre_id = cur.fetchone()[0]
-    print "genre_id ===     ***   " + str(genre_id) + "    ****    "  + genre
-
-    print "--------------------------------------------------------------------------------------------------"
-
 
     cur.execute('''INSERT OR IGNORE INTO Album (title, artist_id) 
         VALUES ( ?, ? )''', ( album, artist_id ) )
+    
     cur.execute('SELECT id FROM Album WHERE title = ? ', (album, ))
     album_id = cur.fetchone()[0]
 
